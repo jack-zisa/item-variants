@@ -12,9 +12,6 @@
     "minecraft:brown_candle",
     "minecraft:brown_stained_glass",
     "minecraft:brown_stained_glass_pane",
-    "minecraft:brown_bed",
-    "minecraft:brown_bundle",
-    "minecraft:brown_harness",
-    "minecraft:brown_egg"
+    "minecraft:brown_bed"
   ]
 }

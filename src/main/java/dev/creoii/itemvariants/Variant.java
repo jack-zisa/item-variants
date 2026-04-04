@@ -3,7 +3,7 @@ package dev.creoii.itemvariants;
 import com.google.gson.*;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.Item;
@@ -23,7 +23,7 @@ public class Variant {
         itemTags = new HashSet<>();
     }
 
-    public Variant build(Identifier id) {
+    public Variant build(ResourceLocation id) {
         this.translationKey = "variant." + id.getPath();
         return this;
     }
@@ -73,12 +73,12 @@ public class Variant {
                     if (value.isJsonPrimitive()) {
                         String pValue = value.getAsString();
                         if (pValue.startsWith("#")) {
-                            TagKey<Item> tagKey = TagKey.create(Registries.ITEM, Identifier.tryParse(pValue.substring(1)));
+                            TagKey<Item> tagKey = TagKey.create(Registries.ITEM, ResourceLocation.tryParse(pValue.substring(1)));
                             variant.addItemTag(tagKey);
                         } else {
-                            Identifier id = Identifier.tryParse(pValue);
+                            ResourceLocation id = ResourceLocation.tryParse(pValue);
                             if (BuiltInRegistries.ITEM.containsKey(id)) {
-                                variant.addItem(BuiltInRegistries.ITEM.getValue(id));
+                                variant.addItem(BuiltInRegistries.ITEM.get(id));
                             } else ItemVariants.LOGGER.warn("Found unknown item id '{}' in a variant.", id);
                         }
                     }

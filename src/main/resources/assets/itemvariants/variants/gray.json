@@ -12,8 +12,6 @@
     "minecraft:gray_candle",
     "minecraft:gray_stained_glass",
     "minecraft:gray_stained_glass_pane",
-    "minecraft:gray_bed",
-    "minecraft:gray_bundle",
-    "minecraft:gray_harness"
+    "minecraft:gray_bed"
   ]
 }

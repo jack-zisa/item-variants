@@ -12,8 +12,6 @@
     "minecraft:magenta_candle",
     "minecraft:magenta_stained_glass",
     "minecraft:magenta_stained_glass_pane",
-    "minecraft:magenta_bed",
-    "minecraft:magenta_bundle",
-    "minecraft:magenta_harness"
+    "minecraft:magenta_bed"
   ]
 }

@@ -12,8 +12,6 @@
     "minecraft:lime_candle",
     "minecraft:lime_stained_glass",
     "minecraft:lime_stained_glass_pane",
-    "minecraft:lime_bed",
-    "minecraft:lime_bundle",
-    "minecraft:lime_harness"
+    "minecraft:lime_bed"
   ]
 }

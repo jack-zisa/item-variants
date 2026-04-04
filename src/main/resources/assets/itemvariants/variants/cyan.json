@@ -12,8 +12,6 @@
     "minecraft:cyan_candle",
     "minecraft:cyan_stained_glass",
     "minecraft:cyan_stained_glass_pane",
-    "minecraft:cyan_bed",
-    "minecraft:cyan_bundle",
-    "minecraft:cyan_harness"
+    "minecraft:cyan_bed"
   ]
 }

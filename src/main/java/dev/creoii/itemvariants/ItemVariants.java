@@ -2,9 +2,8 @@ package dev.creoii.itemvariants;
 
 import dev.creoii.itemvariants.util.VariantItem;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.PackType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,6 +22,6 @@ public class ItemVariants implements ModInitializer {
             }
         });
 
-        ResourceLoader.get(PackType.CLIENT_RESOURCES).registerReloader(Identifier.fromNamespaceAndPath("great_big_world", "variant"), new VariantLoader());
+        ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(new VariantLoader());
     }
 }

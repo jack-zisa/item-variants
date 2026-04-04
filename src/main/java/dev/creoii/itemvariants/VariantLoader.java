@@ -2,7 +2,8 @@ package dev.creoii.itemvariants;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import net.minecraft.resources.Identifier;
+import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
@@ -16,21 +17,26 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class VariantLoader extends SimplePreparableReloadListener<Map<String, Variant>> {
+public class VariantLoader extends SimplePreparableReloadListener<Map<String, Variant>> implements IdentifiableResourceReloadListener {
     public static final Gson GSON = new GsonBuilder().setPrettyPrinting().registerTypeAdapter(Variant.class, new Variant.Serializer()).create();
     public static final Map<String, Variant> VARIANTS = new HashMap<>();
+
+    @Override
+    public ResourceLocation getFabricId() {
+        return ResourceLocation.tryParse("great_big_world:variants");
+    }
 
     @Override
     protected Map<String, Variant> prepare(ResourceManager manager, ProfilerFiller profilerFiller) {
         Map<String, Variant> variants = new HashMap<>();
 
-        Map<Identifier, List<Resource>> resourceMap = manager.listResourceStacks("variants", path -> path.getPath().endsWith(".json"));
-        for (Map.Entry<Identifier, List<Resource>> entry : resourceMap.entrySet()) {
-            Identifier identifier = entry.getKey();
+        Map<ResourceLocation, List<Resource>> resourceMap = manager.listResourceStacks("variants", path -> path.getPath().endsWith(".json"));
+        for (Map.Entry<ResourceLocation, List<Resource>> entry : resourceMap.entrySet()) {
+            ResourceLocation identifier = entry.getKey();
             for (Resource resource : entry.getValue()) {
                 try (InputStream stream = resource.open()) {
                     String result = IOUtils.toString(stream, StandardCharsets.UTF_8);
-                    Identifier identifier1 = Identifier.fromNamespaceAndPath(identifier.getNamespace(), identifier.getPath().replace("variants/", "").replace(".json", ""));
+                    ResourceLocation identifier1 = ResourceLocation.fromNamespaceAndPath(identifier.getNamespace(), identifier.getPath().replace("variants/", "").replace(".json", ""));
                     Variant variant = GSON.fromJson(result, Variant.class).build(identifier1);
 
                     if (variant.getItems().isEmpty() && variant.getItemTags().isEmpty()) {

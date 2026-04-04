@@ -12,8 +12,6 @@
     "minecraft:black_candle",
     "minecraft:black_stained_glass",
     "minecraft:black_stained_glass_pane",
-    "minecraft:black_bed",
-    "minecraft:black_bundle",
-    "minecraft:black_harness"
+    "minecraft:black_bed"
   ]
 }

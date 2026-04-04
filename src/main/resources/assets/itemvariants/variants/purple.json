@@ -12,8 +12,6 @@
     "minecraft:purple_candle",
     "minecraft:purple_stained_glass",
     "minecraft:purple_stained_glass_pane",
-    "minecraft:purple_bed",
-    "minecraft:purple_bundle",
-    "minecraft:purple_harness"
+    "minecraft:purple_bed"
   ]
 }

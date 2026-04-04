@@ -12,8 +12,6 @@
     "minecraft:green_candle",
     "minecraft:green_stained_glass",
     "minecraft:green_stained_glass_pane",
-    "minecraft:green_bed",
-    "minecraft:green_bundle",
-    "minecraft:green_harness"
+    "minecraft:green_bed"
   ]
 }

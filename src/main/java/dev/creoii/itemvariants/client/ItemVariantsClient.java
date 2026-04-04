@@ -17,7 +17,7 @@ public class ItemVariantsClient implements ClientModInitializer {
         });
 
         ItemTooltipCallback.EVENT.register((stack, context, tooltipType, list) -> {
-            if (stack.getItem() instanceof VariantItem variantItem && !ItemStack.matches(stack, Raid.getOminousBannerInstance(context.registries().lookupOrThrow(Registries.BANNER_PATTERN)))) {
+            if (stack.getItem() instanceof VariantItem variantItem && !ItemStack.matches(stack, Raid.getLeaderBannerInstance(context.registries().lookupOrThrow(Registries.BANNER_PATTERN)))) {
                 if (!variantItem.gbw$getVariants().isEmpty()) {
                     list.add(1, VariantItem.getVariantTooltip(variantItem));
                 }

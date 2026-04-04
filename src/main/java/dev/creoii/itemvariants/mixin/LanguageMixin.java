@@ -5,6 +5,7 @@ import dev.creoii.itemvariants.Variant;
 import dev.creoii.itemvariants.util.VariantItem;
 import dev.creoii.itemvariants.VariantLoader;
 import dev.creoii.itemvariants.util.LocaleAwareLanguage;
+import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -14,7 +15,6 @@ import java.util.function.BiConsumer;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
@@ -36,7 +36,7 @@ public class LanguageMixin implements LocaleAwareLanguage {
         String translationKey = (String) key;
         String translated = (String) value;
 
-        Item item = BuiltInRegistries.ITEM.getValue(toId(translationKey));
+        Item item = BuiltInRegistries.ITEM.get(toId(translationKey));
         return renameItemForVariants(item, entryConsumer, translationKey, translated);
     }
 
@@ -50,7 +50,7 @@ public class LanguageMixin implements LocaleAwareLanguage {
     }
 
     @Unique
-    private static Identifier toId(String translationKey) {
+    private static ResourceLocation toId(String translationKey) {
         translationKey = translationKey.toLowerCase();
 
         int dot1 = translationKey.indexOf('.') + 1;
@@ -58,13 +58,13 @@ public class LanguageMixin implements LocaleAwareLanguage {
         int dot3 = translationKey.indexOf('.', dot2 + 1);
 
         if (dot2 < 0)
-            return Identifier.parse("air");
+            return ResourceLocation.parse("air");
 
         String path;
         if (dot3 <= 0) path = translationKey.substring(dot2 + 1);
         else path = translationKey.substring(dot2 + 1, dot3);
 
-        return Identifier.fromNamespaceAndPath(translationKey.substring(dot1, dot2), path);
+        return ResourceLocation.fromNamespaceAndPath(translationKey.substring(dot1, dot2), path);
     }
 
     @Unique

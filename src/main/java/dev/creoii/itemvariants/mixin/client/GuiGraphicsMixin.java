@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 @Mixin(GuiGraphics.class)
 public class GuiGraphicsMixin {
-    @ModifyConstant(method = "method_71275", constant = @Constant(intValue = 0))
+    @ModifyConstant(method = "method_51442", constant = @Constant(intValue = 0))
     private static int gbw$modifyTooltipImageForVariant0(int constant) {
         if (Minecraft.getInstance().screen instanceof AbstractContainerScreen<?> abstractContainerScreen) {
             ItemStack stack = abstractContainerScreen.hoveredSlot.getItem();
@@ -22,7 +22,7 @@ public class GuiGraphicsMixin {
         return constant;
     }
 
-    @ModifyConstant(method = "method_71275", constant = @Constant(intValue = 1))
+    @ModifyConstant(method = "method_51442", constant = @Constant(intValue = 1))
     private static int gbw$modifyTooltipImageForVariant1(int constant) {
         if (Minecraft.getInstance().screen instanceof AbstractContainerScreen<?> abstractContainerScreen) {
             ItemStack stack = abstractContainerScreen.hoveredSlot.getItem();

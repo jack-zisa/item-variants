@@ -17,18 +17,6 @@
     "minecraft:exposed_copper_grate",
     "minecraft:waxed_exposed_copper_grate",
     "minecraft:exposed_copper_bulb",
-    "minecraft:waxed_exposed_copper_bulb",
-    "minecraft:exposed_copper_bars",
-    "minecraft:waxed_exposed_copper_bars",
-    "minecraft:exposed_copper_chain",
-    "minecraft:waxed_exposed_copper_chain",
-    "minecraft:exposed_copper_lantern",
-    "minecraft:waxed_exposed_copper_lantern",
-    "minecraft:exposed_lightning_rod",
-    "minecraft:waxed_exposed_lightning_rod",
-    "minecraft:exposed_copper_chest",
-    "minecraft:waxed_exposed_copper_chest",
-    "minecraft:exposed_copper_golem_statue",
-    "minecraft:waxed_exposed_copper_golem_statue"
+    "minecraft:waxed_exposed_copper_bulb"
   ]
 }

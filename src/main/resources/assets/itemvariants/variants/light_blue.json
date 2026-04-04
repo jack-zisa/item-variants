@@ -12,8 +12,6 @@
     "minecraft:light_blue_candle",
     "minecraft:light_blue_stained_glass",
     "minecraft:light_blue_stained_glass_pane",
-    "minecraft:light_blue_bed",
-    "minecraft:light_blue_bundle",
-    "minecraft:light_blue_harness"
+    "minecraft:light_blue_bed"
   ]
 }

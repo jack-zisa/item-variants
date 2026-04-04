@@ -12,9 +12,6 @@
     "minecraft:blue_candle",
     "minecraft:blue_stained_glass",
     "minecraft:blue_stained_glass_pane",
-    "minecraft:blue_bed",
-    "minecraft:blue_bundle",
-    "minecraft:blue_harness",
-    "minecraft:blue_egg"
+    "minecraft:blue_bed"
   ]
 }
