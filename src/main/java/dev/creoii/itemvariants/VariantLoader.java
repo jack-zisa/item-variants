@@ -36,7 +36,7 @@ public class VariantLoader extends SimplePreparableReloadListener<Map<String, Va
             for (Resource resource : entry.getValue()) {
                 try (InputStream stream = resource.open()) {
                     String result = IOUtils.toString(stream, StandardCharsets.UTF_8);
-                    ResourceLocation identifier1 = ResourceLocation.fromNamespaceAndPath(identifier.getNamespace(), identifier.getPath().replace("variants/", "").replace(".json", ""));
+                    ResourceLocation identifier1 = new ResourceLocation(identifier.getNamespace(), identifier.getPath().replace("variants/", "").replace(".json", ""));
                     Variant variant = GSON.fromJson(result, Variant.class).build(identifier1);
 
                     if (variant.getItems().isEmpty() && variant.getItemTags().isEmpty()) {

@@ -5,7 +5,6 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.item.ItemStack;
 
@@ -16,8 +15,8 @@ public class ItemVariantsClient implements ClientModInitializer {
             Minecraft.getInstance().getLanguageManager().onResourceManagerReload(client.getResourceManager());
         });
 
-        ItemTooltipCallback.EVENT.register((stack, context, tooltipType, list) -> {
-            if (stack.getItem() instanceof VariantItem variantItem && !ItemStack.matches(stack, Raid.getLeaderBannerInstance(context.registries().lookupOrThrow(Registries.BANNER_PATTERN)))) {
+        ItemTooltipCallback.EVENT.register((stack, context, list) -> {
+            if (stack.getItem() instanceof VariantItem variantItem && !ItemStack.matches(stack, Raid.getLeaderBannerInstance())) {
                 if (!variantItem.gbw$getVariants().isEmpty()) {
                     list.add(1, VariantItem.getVariantTooltip(variantItem));
                 }

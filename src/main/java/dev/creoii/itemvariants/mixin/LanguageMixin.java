@@ -58,13 +58,13 @@ public class LanguageMixin implements LocaleAwareLanguage {
         int dot3 = translationKey.indexOf('.', dot2 + 1);
 
         if (dot2 < 0)
-            return ResourceLocation.parse("air");
+            return ResourceLocation.tryParse("air");
 
         String path;
         if (dot3 <= 0) path = translationKey.substring(dot2 + 1);
         else path = translationKey.substring(dot2 + 1, dot3);
 
-        return ResourceLocation.fromNamespaceAndPath(translationKey.substring(dot1, dot2), path);
+        return new ResourceLocation(translationKey.substring(dot1, dot2), path);
     }
 
     @Unique

@@ -26,8 +26,8 @@ public abstract class InGameHudMixin {
     @Shadow private ItemStack lastToolHighlight;
     @Shadow @Final private Minecraft minecraft;
 
-    @WrapOperation(method = "renderSelectedItemName", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;drawStringWithBackdrop(Lnet/minecraft/client/gui/Font;Lnet/minecraft/network/chat/Component;IIII)I"))
-    private int gbw$renderHeldItemVariants(GuiGraphics instance, Font font, Component component, int x, int y, int width, int color, Operation<Void> original) {
+    @WrapOperation(method = "renderSelectedItemName", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;drawString(Lnet/minecraft/client/gui/Font;Lnet/minecraft/network/chat/Component;III)I"))
+    private int gbw$renderHeldItemVariants(GuiGraphics instance, Font font, Component component, int x, int y, int color, Operation<Integer> original) {
         if (minecraft.player != null && minecraft.player.getArmorValue() > 0) {
             y -= 10;
         }
@@ -35,7 +35,7 @@ public abstract class InGameHudMixin {
             instance.drawCenteredString(font, VariantItem.getVariantTooltip(variantItem), x + (font.width(component.getString()) / 2), y + 10, color);
         } else if (FabricLoader.getInstance().isModLoaded("great_big_world")) {
              if (lastToolHighlight.getItem() instanceof SpawnEggItem spawnEggItem && instance.minecraft.level != null) {
-                MutableComponent mutableText = MutableComponent.create(spawnEggItem.getType(lastToolHighlight).getDescription().getContents()).withStyle(ChatFormatting.GRAY);
+                MutableComponent mutableText = MutableComponent.create(spawnEggItem.getType(lastToolHighlight.getTag()).getDescription().getContents()).withStyle(ChatFormatting.GRAY);
                 instance.drawCenteredString(font, mutableText, x + (font.width(component.getString()) / 2), y + 10, color);
             } else if (lastToolHighlight.is(ItemTags.DECORATED_POT_SHERDS)) {
                 ResourceLocation id = BuiltInRegistries.ITEM.getKey(lastToolHighlight.getItem());
@@ -43,7 +43,7 @@ public abstract class InGameHudMixin {
             }
         }
 
-        instance.drawStringWithBackdrop(font, component, x, y, width, color);
+        instance.drawString(font, component, x, y, color);
         return x;
     }
 }
