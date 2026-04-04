@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "itemvariants",
+  "version": "${version}",
+
+  "name": "Item Variants",
+  "description": "Simplify item names by grouping them into variants",
+  "authors": [],
+  "contact": {},
+
+  "license": "All-Rights-Reserved",
+  "icon": "assets/itemvariants/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "client": ["dev.creoii.itemvariants.client.ItemVariantsClient"],
+    "main": ["dev.creoii.itemvariants.ItemVariants"]
+  },
+
+  "mixins": [
+    "itemvariants.mixins.json"
+  ],
+  "accessWidener": "itemvariants.accesswidener",
+
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
