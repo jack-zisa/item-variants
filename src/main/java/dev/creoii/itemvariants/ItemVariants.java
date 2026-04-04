@@ -23,6 +23,6 @@ public class ItemVariants implements ModInitializer {
             }
         });
 
-        ResourceLoader.get(PackType.CLIENT_RESOURCES).registerReloadListener(Identifier.fromNamespaceAndPath("great_big_world", "variant"), new VariantLoader());
+        ResourceLoader.get(PackType.CLIENT_RESOURCES).registerReloader(Identifier.fromNamespaceAndPath("great_big_world", "variant"), new VariantLoader());
     }
 }
