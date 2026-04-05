@@ -12,6 +12,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SpawnEggItem;
 import org.spongepowered.asm.mixin.Final;
@@ -37,7 +38,7 @@ public abstract class InGameHudMixin {
             instance.drawShadow(poseStack, variantText, centerX - (instance.width(variantText) / 2f), y + 10, color);
         } else if (FabricLoader.getInstance().isModLoaded("great_big_world")) {
              if (lastToolHighlight.getItem() instanceof SpawnEggItem spawnEggItem) {
-                 MutableComponent mutableText = MutableComponent.create(spawnEggItem.getType(lastToolHighlight.getTag()).getDescription().getContents()).withStyle(ChatFormatting.GRAY);
+                 MutableComponent mutableText = new TextComponent(spawnEggItem.getType(lastToolHighlight.getTag()).getDescription().getContents()).withStyle(ChatFormatting.GRAY);
                  instance.drawShadow(poseStack, mutableText, centerX - (instance.width(mutableText) / 2f), y + 10, color);
              }
         }

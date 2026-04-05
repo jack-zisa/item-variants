@@ -5,6 +5,8 @@ import dev.creoii.itemvariants.Variant;
 import dev.creoii.itemvariants.util.VariantItem;
 import dev.creoii.itemvariants.VariantLoader;
 import dev.creoii.itemvariants.util.LocaleAwareLanguage;
+import net.minecraft.core.Registry;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -12,9 +14,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.function.BiConsumer;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.locale.Language;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
@@ -36,7 +36,7 @@ public class LanguageMixin implements LocaleAwareLanguage {
         String translationKey = (String) key;
         String translated = (String) value;
 
-        Item item = BuiltInRegistries.ITEM.get(toId(translationKey));
+        Item item = Registry.ITEM.get(toId(translationKey));
         return renameItemForVariants(item, entryConsumer, translationKey, translated);
     }
 
@@ -80,7 +80,7 @@ public class LanguageMixin implements LocaleAwareLanguage {
 
             if (!variantItem.gbw$getVariants().isEmpty()) {
                 String variantKey = translationKey.endsWith(".variant") ? translationKey : translationKey + ".variant";
-                String translated1 = Component.translatable(variantKey).getString();
+                String translated1 = new TranslatableComponent(variantKey).getString();
                 if (!translated1.equals(translated)) {
                     consumer.accept(translationKey, translated1);
                     return false;

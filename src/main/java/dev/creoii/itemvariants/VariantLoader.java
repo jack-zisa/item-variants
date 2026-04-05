@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class VariantLoader extends SimplePreparableReloadListener<Map<String, Variant>> implements IdentifiableResourceReloadListener {
@@ -30,26 +29,28 @@ public class VariantLoader extends SimplePreparableReloadListener<Map<String, Va
     protected Map<String, Variant> prepare(ResourceManager manager, ProfilerFiller profilerFiller) {
         Map<String, Variant> variants = new HashMap<>();
 
-        Map<ResourceLocation, List<Resource>> resourceMap = manager.listResourceStacks("variants", path -> path.getPath().endsWith(".json"));
-        for (Map.Entry<ResourceLocation, List<Resource>> entry : resourceMap.entrySet()) {
-            ResourceLocation identifier = entry.getKey();
-            for (Resource resource : entry.getValue()) {
-                try (InputStream stream = resource.open()) {
-                    String result = IOUtils.toString(stream, StandardCharsets.UTF_8);
-                    ResourceLocation identifier1 = new ResourceLocation(identifier.getNamespace(), identifier.getPath().replace("variants/", "").replace(".json", ""));
-                    Variant variant = GSON.fromJson(result, Variant.class).build(identifier1);
+        for (ResourceLocation identifier : manager.listResources("variants", path -> path.endsWith(".json"))) {
+            try {
+                for (Resource resource : manager.getResources(identifier)) {
+                    try (InputStream stream = resource.getInputStream()) {
+                        String result = IOUtils.toString(stream, StandardCharsets.UTF_8);
+                        ResourceLocation identifier1 = new ResourceLocation(identifier.getNamespace(), identifier.getPath().replace("variants/", "").replace(".json", ""));
+                        Variant variant = GSON.fromJson(result, Variant.class).build(identifier1);
 
-                    if (variant.getItems().isEmpty() && variant.getItemTags().isEmpty()) {
-                        ItemVariants.LOGGER.warn("Found empty variant definition: '{}'", identifier);
-                        continue;
+                        if (variant.getItems().isEmpty() && variant.getItemTags().isEmpty()) {
+                            ItemVariants.LOGGER.warn("Found empty variant definition: '{}'", identifier);
+                            continue;
+                        }
+
+                        if (variants.containsKey(identifier1.getPath())) {
+                            variant.copyTo(variants.get(identifier1.getPath()));
+                        } else variants.put(identifier1.getPath(), variant);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
                     }
-
-                    if (variants.containsKey(identifier1.getPath())) {
-                        variant.copyTo(variants.get(identifier1.getPath()));
-                    } else variants.put(identifier1.getPath(), variant);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
                 }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
 

@@ -4,6 +4,8 @@ import dev.creoii.itemvariants.Variant;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 
 import java.util.Iterator;
 import java.util.Set;
@@ -16,13 +18,13 @@ public interface VariantItem {
     }
 
     static Component getVariantTooltip(VariantItem variantItem) {
-        MutableComponent text = Component.empty();
+        MutableComponent text = new TextComponent("");
         Iterator<Variant> iterator = variantItem.gbw$getVariants().iterator();
         while (iterator.hasNext()) {
             Variant variant = iterator.next();
-            text.append(Component.translatable(variant.getTranslationKey()).withStyle(ChatFormatting.GRAY));
+            text.append(new TranslatableComponent(variant.getTranslationKey()).withStyle(ChatFormatting.GRAY));
             if (iterator.hasNext())
-                text.append(Component.literal(", ").withStyle(ChatFormatting.GRAY));
+                text.append(new TextComponent(", ").withStyle(ChatFormatting.GRAY));
         }
         return text;
     }

@@ -1,8 +1,7 @@
 package dev.creoii.itemvariants;
 
 import com.google.gson.*;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
@@ -73,12 +72,12 @@ public class Variant {
                     if (value.isJsonPrimitive()) {
                         String pValue = value.getAsString();
                         if (pValue.startsWith("#")) {
-                            TagKey<Item> tagKey = TagKey.create(Registries.ITEM, ResourceLocation.tryParse(pValue.substring(1)));
+                            TagKey<Item> tagKey = TagKey.create(Registry.ITEM_REGISTRY, ResourceLocation.tryParse(pValue.substring(1)));
                             variant.addItemTag(tagKey);
                         } else {
                             ResourceLocation id = ResourceLocation.tryParse(pValue);
-                            if (BuiltInRegistries.ITEM.containsKey(id)) {
-                                variant.addItem(BuiltInRegistries.ITEM.get(id));
+                            if (Registry.ITEM.containsKey(id)) {
+                                variant.addItem(Registry.ITEM.get(id));
                             } else ItemVariants.LOGGER.warn("Found unknown item id '{}' in a variant.", id);
                         }
                     }
@@ -94,7 +93,7 @@ public class Variant {
             JsonArray array = new JsonArray();
 
             src.getItemTags().forEach(tagKey -> array.add("#" + tagKey.location()));
-            src.getItems().forEach(item -> array.add(BuiltInRegistries.ITEM.getKey(item).toString()));
+            src.getItems().forEach(item -> array.add(Registry.ITEM.getKey(item).toString()));
 
             obj.add("values", array);
             return obj;

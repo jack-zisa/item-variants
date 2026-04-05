@@ -1,5 +1,6 @@
 package dev.creoii.itemvariants.mixin.client;
 
+import com.llamalad7.mixinextras.sugar.Local;
 import dev.creoii.itemvariants.util.LocaleAwareLanguage;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -14,9 +15,12 @@ import net.minecraft.server.packs.resources.Resource;
 
 @Mixin(ClientLanguage.class)
 public class TranslationStorageMixin {
-    @Inject(method = "appendFrom(Ljava/lang/String;Ljava/util/List;Ljava/util/Map;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/locale/Language;loadFromJson(Ljava/io/InputStream;Ljava/util/function/BiConsumer;)V"))
-    private static void gbw$applyLocaleAwareLanguage(String langCode, List<Resource> resourceRefs, Map<String, String> translations, CallbackInfo ci) {
-        if (Language.getInstance() != null)
+    @Inject(method = "appendFrom", at = @At(value = "INVOKE", target = "Lnet/minecraft/locale/Language;loadFromJson(Ljava/io/InputStream;Ljava/util/function/BiConsumer;)V"))
+    private static void gbw$applyLocaleAwareLanguage(List<Resource> list, Map<String, String> map, CallbackInfo ci, @Local Resource resource) {
+        if (Language.getInstance() != null) {
+            String path = resource.getLocation().getPath();
+            String langCode = path.substring(path.lastIndexOf('/') + 1).replace(".json", "");
             ((LocaleAwareLanguage) Language.getInstance()).gbw$setLangCode(langCode);
+        }
     }
 }
