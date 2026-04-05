@@ -20,10 +20,11 @@
   "mixins": [
     "itemvariants.mixins.json"
   ],
+  "accessWidener": "itemvariants.accesswidener",
 
   "depends": {
     "fabricloader": ">=${loader_version}",
-    "fabric-api": "*",
+    "fabric": "*",
     "minecraft": "${minecraft_version}"
   }
 }

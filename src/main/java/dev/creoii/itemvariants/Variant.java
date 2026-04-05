@@ -3,7 +3,8 @@ package dev.creoii.itemvariants;
 import com.google.gson.*;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.Tag;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -14,7 +15,7 @@ import java.util.Set;
 
 public class Variant {
     private final Set<Item> items;
-    private final Set<TagKey<Item>> itemTags;
+    private final Set<Tag.Named<Item>> itemTags;
     private String translationKey;
 
     public Variant() {
@@ -31,7 +32,7 @@ public class Variant {
         return items;
     }
 
-    public Set<TagKey<Item>> getItemTags() {
+    public Set<Tag.Named<Item>> getItemTags() {
         return itemTags;
     }
 
@@ -40,8 +41,8 @@ public class Variant {
     }
 
     public boolean isStackInTags(ItemStack stack) {
-        for (TagKey<Item> tagKey : itemTags) {
-            if (stack.is(tagKey))
+        for (Tag.Named<Item> tagKey : itemTags) {
+            if (stack.getItem().is(tagKey))
                 return true;
         }
         return false;
@@ -51,7 +52,7 @@ public class Variant {
         items.add(item);
     }
 
-    public void addItemTag(TagKey<Item> itemTag) {
+    public void addItemTag(Tag.Named<Item> itemTag) {
         itemTags.add(itemTag);
     }
 
@@ -72,7 +73,7 @@ public class Variant {
                     if (value.isJsonPrimitive()) {
                         String pValue = value.getAsString();
                         if (pValue.startsWith("#")) {
-                            TagKey<Item> tagKey = TagKey.create(Registry.ITEM_REGISTRY, ResourceLocation.tryParse(pValue.substring(1)));
+                            Tag.Named<Item> tagKey = ItemTags.HELPER.bind(pValue.substring(1));
                             variant.addItemTag(tagKey);
                         } else {
                             ResourceLocation id = ResourceLocation.tryParse(pValue);
@@ -92,7 +93,7 @@ public class Variant {
             JsonObject obj = new JsonObject();
             JsonArray array = new JsonArray();
 
-            src.getItemTags().forEach(tagKey -> array.add("#" + tagKey.location()));
+            src.getItemTags().forEach(tagKey -> array.add("#" + tagKey.getName()));
             src.getItems().forEach(item -> array.add(Registry.ITEM.getKey(item).toString()));
 
             obj.add("values", array);
