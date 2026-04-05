@@ -20,7 +20,6 @@
   "mixins": [
     "itemvariants.mixins.json"
   ],
-  "accessWidener": "itemvariants.accesswidener",
 
   "depends": {
     "fabricloader": ">=${loader_version}",

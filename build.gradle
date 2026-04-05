@@ -6,10 +6,6 @@ plugins {
 version = "${mod_version}+${project.minecraft_version}"
 group = project.maven_group
 
-loom {
-    accessWidenerPath = file("src/main/resources/itemvariants.accesswidener")
-}
-
 base {
     archivesName = project.archives_base_name
 }

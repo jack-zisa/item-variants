@@ -10,7 +10,7 @@ import net.minecraft.network.chat.Component;
 
 @Mixin(CreativeModeInventoryScreen.class)
 public class CreativeInventoryScreenMixin {
-    @Redirect(method = "getTooltipFromContainerItem", at = @At(value = "INVOKE", target = "Ljava/util/List;add(ILjava/lang/Object;)V"))
+    @Redirect(method = "renderTooltip", at = @At(value = "INVOKE", target = "Ljava/util/List;add(ILjava/lang/Object;)V"))
     private <E> void gbw$fixTooltipOrder(List<Component> instance, int i, E e) {
         instance.add(Math.min(i + 1, instance.size()), (Component) e);
     }
