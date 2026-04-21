@@ -33,7 +33,7 @@ public abstract class InGameHudMixin {
         }
         if (lastToolHighlight.getItem() instanceof VariantItem variantItem && !variantItem.gbw$getVariants().isEmpty()) {
             instance.drawCenteredString(font, VariantItem.getVariantTooltip(variantItem), x + (font.width(component.getString()) / 2), y + 10, color);
-        } else if (FabricLoader.getInstance().isModLoaded("great_big_world")) {
+        } else if (FabricLoader.getInstance().isModLoaded("architects_assembly")) {
              if (lastToolHighlight.getItem() instanceof SpawnEggItem spawnEggItem && instance.minecraft.level != null) {
                 MutableComponent mutableText = MutableComponent.create(spawnEggItem.getType(lastToolHighlight).getDescription().getContents()).withStyle(ChatFormatting.GRAY);
                 instance.drawCenteredString(font, mutableText, x + (font.width(component.getString()) / 2), y + 10, color);
