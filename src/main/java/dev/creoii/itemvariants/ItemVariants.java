@@ -2,6 +2,7 @@ package dev.creoii.itemvariants;
 
 import dev.creoii.itemvariants.util.VariantItem;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
@@ -14,13 +15,16 @@ public class ItemVariants implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        BuiltInRegistries.ITEM.forEach(item -> {
-            if (item instanceof VariantItem variantItem) {
-                for (Variant variant : VariantLoader.VARIANTS.values()) {
-                    if (variant.getItems().contains(variantItem) || variant.isStackInTags(item.getDefaultInstance()))
-                        variantItem.gbw$addVariant(variant);
+        ClientPlayConnectionEvents.INIT.register((handler, client) -> {
+            BuiltInRegistries.ITEM.forEach(item -> {
+                if (item instanceof VariantItem variantItem) {
+                    for (Variant variant : VariantLoader.VARIANTS.values()) {
+                        if (variant.getItems().contains(variantItem) || variant.isStackInTags(item.getDefaultInstance())) {
+                            variantItem.gbw$addVariant(variant);
+                        }
+                    }
                 }
-            }
+            });
         });
 
         ResourceLoader.get(PackType.CLIENT_RESOURCES).registerReloader(Identifier.fromNamespaceAndPath("great_big_world", "variant"), new VariantLoader());
