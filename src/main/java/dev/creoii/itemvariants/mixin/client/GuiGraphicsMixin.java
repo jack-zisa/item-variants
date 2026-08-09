@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 public class GuiGraphicsMixin {
     @ModifyConstant(method = "lambda$setTooltipForNextFrame$0", constant = @Constant(intValue = 0))
     private static int gbw$modifyTooltipImageForVariant00(int constant) {
-        if (Minecraft.getInstance().screen instanceof AbstractContainerScreen<?> abstractContainerScreen) {
+        if (Minecraft.getInstance().gui.screen() instanceof AbstractContainerScreen<?> abstractContainerScreen) {
             ItemStack stack = abstractContainerScreen.hoveredSlot.getItem();
             if (stack.getItem() instanceof VariantItem variantItem && !variantItem.gbw$getVariants().isEmpty()) {
                 return constant + 1;
@@ -24,7 +24,7 @@ public class GuiGraphicsMixin {
 
     @ModifyConstant(method = "lambda$setTooltipForNextFrame$0", constant = @Constant(intValue = 1))
     private static int gbw$modifyTooltipImageForVariant10(int constant) {
-        if (Minecraft.getInstance().screen instanceof AbstractContainerScreen<?> abstractContainerScreen) {
+        if (Minecraft.getInstance().gui.screen() instanceof AbstractContainerScreen<?> abstractContainerScreen) {
             ItemStack stack = abstractContainerScreen.hoveredSlot.getItem();
             if (stack.getItem() instanceof VariantItem variantItem && !variantItem.gbw$getVariants().isEmpty()) {
                 return constant + 1;
@@ -35,7 +35,7 @@ public class GuiGraphicsMixin {
 
     @ModifyConstant(method = "lambda$setTooltipForNextFrame$1", constant = @Constant(intValue = 0))
     private static int gbw$modifyTooltipImageForVariant01(int constant) {
-        if (Minecraft.getInstance().screen instanceof AbstractContainerScreen<?> abstractContainerScreen) {
+        if (Minecraft.getInstance().gui.screen() instanceof AbstractContainerScreen<?> abstractContainerScreen) {
             ItemStack stack = abstractContainerScreen.hoveredSlot.getItem();
             if (stack.getItem() instanceof VariantItem variantItem && !variantItem.gbw$getVariants().isEmpty()) {
                 return constant + 1;
@@ -46,7 +46,7 @@ public class GuiGraphicsMixin {
 
     @ModifyConstant(method = "lambda$setTooltipForNextFrame$1", constant = @Constant(intValue = 1))
     private static int gbw$modifyTooltipImageForVariant11(int constant) {
-        if (Minecraft.getInstance().screen instanceof AbstractContainerScreen<?> abstractContainerScreen) {
+        if (Minecraft.getInstance().gui.screen() instanceof AbstractContainerScreen<?> abstractContainerScreen) {
             ItemStack stack = abstractContainerScreen.hoveredSlot.getItem();
             if (stack.getItem() instanceof VariantItem variantItem && !variantItem.gbw$getVariants().isEmpty()) {
                 return constant + 1;
